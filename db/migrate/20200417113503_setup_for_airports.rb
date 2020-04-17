@@ -8,7 +8,7 @@ class SetupForAirports < ActiveRecord::Migration[6.0]
     add_reference :panchayats, :district, index: true
 
     create_table :applications do |t|
-      t.reference :user
+      t.references :user
     end
 
     create_table :travellers do |t|
@@ -18,8 +18,8 @@ class SetupForAirports < ActiveRecord::Migration[6.0]
       t.string :alternate_contact
       t.date :dob
       t.string :gender
-      t.address :permanent_address
-      t.reference :application
+      t.string :permanent_address
+      t.references :application
       t.timestamps
     end
 
@@ -48,7 +48,7 @@ class SetupForAirports < ActiveRecord::Migration[6.0]
       t.boolean :has_tested
       t.boolean :was_positive
       t.string :test_type
-      t.reference :traveller
+      t.references :traveller
       t.timestamps
     end
   end
