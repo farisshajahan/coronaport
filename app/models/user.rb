@@ -4,9 +4,9 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+    :recoverable, :rememberable, :validatable
 
-  enum role: {traveller: "traveller", phone_caller: "phone_caller", district_admin: "district_admin", panchayat_admin: "panchayat_admin", admin: "admin" }
+  enum role: { traveller: "traveller", phone_caller: "phone_caller", district_admin: "district_admin", panchayat_admin: "panchayat_admin", admin: "admin" }
   after_initialize :set_default_role, if: :new_record?
 
   def set_default_role
@@ -17,6 +17,8 @@ class User < ApplicationRecord
 
   has_many :calls
   has_many :called, through: :calls, source: :contact
+
+  has_many :application
 
   def is_admin?
     ["district_admin", "panchayat_admin", "admin"].include?(role)

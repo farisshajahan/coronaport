@@ -16,22 +16,26 @@ class RegistrationsController < Devise::RegistrationsController
           resource.save
         end
       end
+
+      sign_in resource
+      redirect_to root_path
     end
   end
 
   private
-    def redirect_unless_admin
-      unless current_user.try(:admin?) || current_user.try(:district_admin?)
-        flash[:alert] = "Access Denied! Only Admins are Allowed Access"
-        redirect_to root_path
-      end
-    end
 
-    def sign_up(resource_name, resource)
-      true
+  def redirect_unless_admin
+    unless current_user.try(:admin?) || current_user.try(:district_admin?)
+      flash[:alert] = "Access Denied! Only Admins are Allowed Access"
+      redirect_to root_path
     end
+  end
 
-    def after_sign_up_path_for(resource)
-      new_user_registration_path
-    end
+  def sign_up(resource_name, resource)
+    true
+  end
+
+  def after_sign_up_path_for(resource)
+    new_user_registration_path
+  end
 end

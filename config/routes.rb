@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { :registrations => 'registrations'}
+  devise_for :users, :controllers => { :registrations => 'registrations' }
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
-  root 'contacts#index'
+  root 'applications#show'
 
   get '/healthvolunteer', to: redirect('https://docs.google.com/forms/d/e/1FAIpQLSd6bQwTa5uTSgyo-Da-ir6bR0sxfGrRDtyxobBlkvaVlA8Z2A/viewform?usp=sf_link')
 
@@ -22,5 +22,9 @@ Rails.application.routes.draw do
       get :fullfill, on: :member
       get :not_able, on: :member
     end
+  end
+
+  resources :applications, only: [:show, :new] do
+
   end
 end
