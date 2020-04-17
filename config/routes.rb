@@ -24,7 +24,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :applications, only: [:show, :new] do
+  resources :applications, only: [:show, :new, :create] do
 
   end
 end

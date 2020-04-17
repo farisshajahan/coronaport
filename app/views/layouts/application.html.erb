@@ -1,15 +1,26 @@
 <!DOCTYPE html>
-<html>
-
+<% def flash_messages
+     flash.map do |type, message|
+       {
+         type: type,
+         message: message
+       }
+     end.to_json
+   end
+%>
+<html lang='en' data-user-id="<%= current_user&.id %>" data-flash="<%= flash_messages %>" data-env="<%= Rails.env %>">
 <head>
   <title>Corona Port</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= yield :head %>
+
+  <%= stylesheet_pack_tag 'application' %>
+  <%= javascript_pack_tag 'application' %>
 </head>
 
 <body class="bg-gray-100 leading-normal tracking-normal font-sans text-gray-900">
@@ -59,6 +70,7 @@
 <main class="p-4 lg:p-6 py-10 max-w-5xl mx-auto">
   <%= yield %>
 </main>
+<%= yield :tail %>
 </body>
 
 </html>
