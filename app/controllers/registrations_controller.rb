@@ -1,19 +1,18 @@
 # frozen_string_literal: true
 
 class RegistrationsController < Devise::RegistrationsController
-  before_action :authenticate_user!, :redirect_unless_admin, only: [:new, :create]
   skip_before_action :require_no_authentication
 
   def create
     super do
       if current_user.try(:admin)
         if not ["district_admin", "panchayat_admin", "phone_caller"].include?(resource.role)
-          resource.role = "phone_caller"
+          resource.role = "traveller"
           resource.save
         end
       elsif current_user.try(:district_admin)
         if not ["panchayat_admin", "phone_caller"].include?(resource.role)
-          resource.role = "phone_caller"
+          resource.role = "traveller"
           resource.save
         end
       end
