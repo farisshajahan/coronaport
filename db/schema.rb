@@ -10,15 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_17_124217) do
+ActiveRecord::Schema.define(version: 2020_04_18_095948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "applications", force: :cascade do |t|
-    t.bigint "user_id"
-    t.index ["user_id"], name: "index_applications_on_user_id"
-  end
 
   create_table "calls", force: :cascade do |t|
     t.bigint "contact_id", null: false
@@ -95,50 +90,12 @@ ActiveRecord::Schema.define(version: 2020_04_17_124217) do
     t.index ["panchayat_id"], name: "index_houses_on_panchayat_id"
   end
 
-  create_table "medical_reqs", force: :cascade do |t|
-    t.bigint "contact_id", null: false
-    t.boolean "need_medicines"
-    t.boolean "fullfilled"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "requirement_type"
-    t.string "other_needs"
-    t.string "not_able_type"
-    t.index ["contact_id"], name: "index_medical_reqs_on_contact_id"
-  end
-
-  create_table "non_medical_reqs", force: :cascade do |t|
-    t.bigint "contact_id", null: false
-    t.boolean "need_food"
-    t.boolean "fullfilled"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "requirement_type"
-    t.string "other_needs"
-    t.string "not_able_type"
-    t.index ["contact_id"], name: "index_non_medical_reqs_on_contact_id"
-  end
-
   create_table "panchayats", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "district_id"
     t.index ["district_id"], name: "index_panchayats_on_district_id"
-  end
-
-  create_table "travellers", force: :cascade do |t|
-    t.string "name"
-    t.string "passport_number"
-    t.string "phone"
-    t.string "alternate_contact"
-    t.date "dob"
-    t.string "gender"
-    t.string "permanent_address"
-    t.bigint "application_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["application_id"], name: "index_travellers_on_application_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -158,6 +115,4 @@ ActiveRecord::Schema.define(version: 2020_04_17_124217) do
 
   add_foreign_key "calls", "contacts"
   add_foreign_key "calls", "users"
-  add_foreign_key "medical_reqs", "contacts"
-  add_foreign_key "non_medical_reqs", "contacts"
 end
