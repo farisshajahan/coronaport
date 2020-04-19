@@ -1,12 +1,20 @@
 class ApplicationsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :index
+  before_action :set_application, only: [:show, :edit, :update]
 
   def index
-    @applications = current_user.applications
+    @applications = current_user&.applications
   end
 
   def show
     @application = Application.find(params[:id])
+  end
+
+  def new
+    @application = Application.new
+  end
+
+  def edit
   end
 
   def create
@@ -21,9 +29,25 @@ class ApplicationsController < ApplicationController
     end
   end
 
+  def update
+    respond_to do |format|
+      if @application.update(application_params)
+        format.html { redirect_to @application, notice: "Application was successfully updated." }
+        format.json { render :show, status: :ok, location: @application }
+      else
+        format.html { render :edit }
+        format.json { render json: @application.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def set_application
+    @application = Application.find(params[:id])
+  end
+
   private
 
   def application_params
-    params.require(:application).permit(:port_id)
+    params.require(:application).permit(:port_id, :flight_number, :arrival_on, :port_of_departure)
   end
 end
