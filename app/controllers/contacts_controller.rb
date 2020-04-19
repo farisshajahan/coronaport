@@ -6,6 +6,52 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
+    non_medical_ids = Contact.joins(:non_medical_reqs).where(non_medical_reqs: { fullfilled: nil, not_able_type: nil }).distinct.pluck(:id)
+    medical_ids = Contact.joins(:medical_reqs).where(medical_reqs: { fullfilled: nil, not_able_type: nil }).distinct.pluck(:id)
+    unscoped_contacts = Contact.where(id: non_medical_ids + medical_ids).distinct
+    @act_as_panchayat = params[:panchayat_name] ? true : false
+
+    @contacts = scope_access(unscoped_contacts)
+    if current_user.phone_caller?
+      contacts_called_by_user_today = Contact.joins(:calls).where(calls: { user_id: current_user.id, created_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day }).distinct
+      @contacts = contacts_called_by_user_today
+    end
+
+    if current_user.panchayat_admin? or @act_as_panchayat
+      if @act_as_panchayat
+        panchayat = Panchayat.find_by(name: params[:panchayat_name])
+        @contacts = unscoped_contacts.where(panchayat: panchayat)
+      else
+        panchayat = current_user.panchayat
+      end
+      @non_medical_count = Contact.where(panchayat: panchayat).joins(:non_medical_reqs).distinct.count
+      @medical_count = Contact.where(panchayat: panchayat).joins(:medical_reqs).distinct.count
+
+      @non_medical_count_remaining = Contact.where(panchayat: panchayat).joins(:non_medical_reqs).where(non_medical_reqs: { fullfilled: nil, not_able_type: nil }).distinct.count
+      @medical_count_remaining = Contact.where(panchayat: panchayat).joins(:medical_reqs).where(medical_reqs: { fullfilled: nil, not_able_type: nil }).distinct.count
+    elsif current_user.district_admin? or current_user.admin?
+      today = Time.zone.now.beginning_of_day..Time.zone.now.end_of_day
+      @non_medical_today_count = NonMedicalReq.where(created_at: today).distinct.count
+      @medical_today_count = MedicalReq.where(created_at: today).distinct.count
+
+      @non_medical_count = Contact.joins(:non_medical_reqs).distinct.count
+      @medical_count = Contact.joins(:medical_reqs).distinct.count
+
+      @non_medical_count_remaining = Contact.joins(:non_medical_reqs).where(non_medical_reqs: { fullfilled: nil, not_able_type: nil }).distinct.count
+      @medical_count_remaining = Contact.joins(:medical_reqs).where(medical_reqs: { fullfilled: nil, not_able_type: nil }).distinct.count
+
+      panchayats = Panchayat.order(name: :asc)
+      @panchayats_data = panchayats.map { |p|
+        {
+          name: p.name,
+          p_non_medical_count: Contact.where(panchayat: p).joins(:non_medical_reqs).distinct.count,
+          p_medical_count: Contact.where(panchayat: p).joins(:medical_reqs).distinct.count,
+          p_non_medical_count_remaining: Contact.where(panchayat: p).joins(:non_medical_reqs).where(non_medical_reqs: { fullfilled: nil, not_able_type: nil }).distinct.count,
+          p_medical_count_remaining: Contact.where(panchayat: p).joins(:medical_reqs).where(medical_reqs: { fullfilled: nil, not_able_type: nil }).distinct.count
+        }
+      }
+    end
+
     respond_to do |format|
       format.html
       format.csv { send_data @contacts.to_csv, filename: "requests-#{Date.today}.csv" }
@@ -81,24 +127,61 @@ class ContactsController < ApplicationController
     end
   end
 
+  def generate_medical_reqs
+    unscoped_contacts = Contact.joins(:medical_reqs).where(medical_reqs: { fullfilled: nil, not_able_type: nil }).distinct
+    contacts = scope_access(unscoped_contacts)
+    respond_to do |format|
+      format.csv { send_data contacts.to_medical_csv, filename: "users-#{Date.today}.csv" }
+    end
+  end
+
+  def generate_non_medical_reqs
+    unscoped_contacts = Contact.joins(:non_medical_reqs).where(non_medical_reqs: { fullfilled: nil, not_able_type: nil }).distinct
+    contacts = scope_access(unscoped_contacts)
+    respond_to do |format|
+      format.csv { send_data contacts.to_non_medical_csv, filename: "users-#{Date.today}.csv" }
+    end
+  end
+
+  def generate_complete_reqs
+    completed_ids = Contact.joins(:non_medical_reqs).where.not(non_medical_reqs: { fullfilled: nil }).distinct.pluck(:id) +
+      Contact.joins(:medical_reqs).where.not(medical_reqs: { fullfilled: nil }).distinct.pluck(:id)
+    unscoped_contacts = Contact.where(id: completed_ids).distinct
+    contacts = scope_access(unscoped_contacts)
+    respond_to do |format|
+      format.csv { send_data contacts.to_csv, filename: "users-#{Date.today}.csv" }
+    end
+  end
+
+  def find_phone
+    phone = params["search"]["phone_number"]
+    @contact = Contact.find_by(phone: phone.squish)
+    if @contact
+      redirect_to @contact
+    else
+      redirect_to action: :new
+    end
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_contact
-      @contact = Contact.find(params[:id])
-    end
 
-    def scope_access(contacts)
-      if current_user.admin?
-        contacts
-      elsif current_user.district_admin?
-        contacts
-      elsif current_user.panchayat_admin?
-        contacts.where(panchayat: current_user.panchayat)
-      end
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_contact
+    @contact = Contact.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def contact_params
-      params.require(:contact).permit(:name, :phone, :gender, :age, :house_name, :ward, :landmark, :panchayat_id, :ration_type, :willing_to_pay, :number_of_family_members, :feedback, :user_id, :date_of_contact, :tracking_type, :panchayat_feedback)
+  def scope_access(contacts)
+    if current_user.admin?
+      contacts
+    elsif current_user.district_admin?
+      contacts
+    elsif current_user.panchayat_admin?
+      contacts.where(panchayat: current_user.panchayat)
     end
+  end
+
+  # Only allow a list of trusted parameters through.
+  def contact_params
+    params.require(:contact).permit(:name, :phone, :gender, :age, :house_name, :ward, :landmark, :panchayat_id, :ration_type, :willing_to_pay, :number_of_family_members, :feedback, :user_id, :date_of_contact, :tracking_type, :panchayat_feedback)
+  end
 end

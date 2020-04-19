@@ -21,6 +21,10 @@ pickle-email-*.html
 !/log/.keep
 !/tmp/.keep
 
+.idea
+.generators
+.rakeTasks
+
 # TODO Comment out this rule if you are OK with secrets being uploaded to the repo
 config/initializers/secret_token.rb
 config/master.key
@@ -73,3 +77,38 @@ yarn-debug.log*
 # End of https://www.gitignore.io/api/rails
 # Ignore Data
 /data/*
+
+/node_modules
+
+coverage
+public/uploads
+storage
+tags
+.tags*
+
+# Ignore IDE-specific files.
+/.idea/
+/.vscode
+
+# Ignore OS-specific files.
+*.DS_Store
+
+# Ignore dotenv files.
+.env*
+
+# Ignore these associated with reason-react and bsb
+.merlin
+lib/bs/
+npm-debug.log
+.DS_Store
+.bsb.lock
+*.bs.js
+
+# Ignore the examples file that tracks Rspec runs.
+examples.txt
+
+# Ignore .graphql_ppx_cache
+.graphql_ppx_cache
+
+# Ignore logs from lerna
+lerna-debug.log

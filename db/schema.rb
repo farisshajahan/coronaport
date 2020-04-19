@@ -10,11 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_04_19_062211) do
+=======
+ActiveRecord::Schema.define(version: 2020_04_17_214832) do
+>>>>>>> 7ea69cf0e4b1b354435cca94ef9f75ecfc6259c6
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+<<<<<<< HEAD
+=======
+  create_table "applications", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "flight_number"
+    t.datetime "arrival_on"
+    t.string "port_of_departure"
+    t.string "alternate_contact"
+    t.bigint "port_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["port_id"], name: "index_applications_on_port_id"
+    t.index ["user_id"], name: "index_applications_on_user_id"
+  end
+
+>>>>>>> 7ea69cf0e4b1b354435cca94ef9f75ecfc6259c6
   create_table "calls", force: :cascade do |t|
     t.bigint "contact_id", null: false
     t.bigint "user_id", null: false
@@ -100,6 +120,28 @@ ActiveRecord::Schema.define(version: 2020_04_19_062211) do
     t.index ["district_id"], name: "index_panchayats_on_district_id"
   end
 
+<<<<<<< HEAD
+=======
+  create_table "ports", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+  end
+
+  create_table "travellers", force: :cascade do |t|
+    t.string "name"
+    t.string "passport_number"
+    t.string "phone"
+    t.string "alternate_contact"
+    t.date "dob"
+    t.string "gender"
+    t.string "permanent_address"
+    t.bigint "application_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["application_id"], name: "index_travellers_on_application_id"
+  end
+
+>>>>>>> 7ea69cf0e4b1b354435cca94ef9f75ecfc6259c6
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
