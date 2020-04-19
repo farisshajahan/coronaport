@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_18_095948) do
+ActiveRecord::Schema.define(version: 2020_04_19_062211) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,9 +45,11 @@ ActiveRecord::Schema.define(version: 2020_04_18_095948) do
     t.string "passport_number"
     t.string "alternate_contact"
     t.bigint "application_id"
+    t.bigint "user_id"
     t.index ["application_id"], name: "index_contacts_on_application_id"
     t.index ["panchayat_id"], name: "index_contacts_on_panchayat_id"
     t.index ["phone"], name: "index_contacts_on_phone", unique: true
+    t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
   create_table "districts", force: :cascade do |t|

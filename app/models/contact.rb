@@ -5,12 +5,8 @@ class Contact < ApplicationRecord
   enum ration_type: { yellow: "yellow", pink: "pink", blue: "blue", white: "white" }
   enum tracking_type: { international_passenger: "international_passenger", domestic_passenger: "domestic_passenger", other: "other" }
 
-  belongs_to :panchayat
-  has_many :non_medical_reqs
-  has_many :medical_reqs
-
-  has_many :calls
-  has_many :callees, through: :calls, source: :user
+  belongs_to :panchayat, optional: :true
+  belongs_to :user
 
   def self.to_csv
     attributes = %w{name phone house_name ward panchayat to_pay card_color family_members non_medical_needs medical_needs}
