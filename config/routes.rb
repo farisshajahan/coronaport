@@ -8,23 +8,22 @@ Rails.application.routes.draw do
   get '/healthvolunteer', to: redirect('https://docs.google.com/forms/d/e/1FAIpQLSd6bQwTa5uTSgyo-Da-ir6bR0sxfGrRDtyxobBlkvaVlA8Z2A/viewform?usp=sf_link')
 
   get 'find_phone' => "contacts#find_phone"
-  resources :contacts, except: [:destroy] do
-    get :make_call, on: :member
-    get :generate_non_medical_reqs, on: :collection
-    get :generate_medical_reqs, on: :collection
-    get :generate_complete_reqs, on: :collection
 
-    resources :non_medical_reqs do
-      get :fullfill, on: :member
-      get :not_able, on: :member
+  resources :applications, only: [:index,:show, :new, :create] do
+    resources :contacts, except: [:destroy] do
+      get :make_call, on: :member
+      get :generate_non_medical_reqs, on: :collection
+      get :generate_medical_reqs, on: :collection
+      get :generate_complete_reqs, on: :collection
+
+      resources :non_medical_reqs do
+        get :fullfill, on: :member
+        get :not_able, on: :member
+      end
+      resources :medical_reqs do
+        get :fullfill, on: :member
+        get :not_able, on: :member
+      end
     end
-    resources :medical_reqs do
-      get :fullfill, on: :member
-      get :not_able, on: :member
-    end
-  end
-
-  resources :applications, only: [:show, :new, :create] do
-
   end
 end

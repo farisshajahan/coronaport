@@ -1,5 +1,5 @@
 <section class="mt-8 max-w-lg">
-    <%= simple_form_for @contact, defaults: { input_html: {class: 'form-input mt-1 font-sans'}, wrapper_html: {class: 'flex flex-col my-4'}, label_html: {class: 'mb-1'}} do |f| %>
+    <%= simple_form_for [@application, @application.contacts.build], defaults: { input_html: {class: 'form-input mt-1 font-sans'}, wrapper_html: {class: 'flex flex-col my-4'}, label_html: {class: 'mb-1'}} do |f| %>
     <%= f.error_notification %>
     <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 

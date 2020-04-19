@@ -1,6 +1,7 @@
 class ApplicationsController < ApplicationController
   before_action :authenticate_user!
   def index
+    @applications = Application.all()
   end
 
   def create

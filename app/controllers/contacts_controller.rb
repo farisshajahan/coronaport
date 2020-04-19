@@ -20,7 +20,7 @@ class ContactsController < ApplicationController
 
   # GET /contacts/new
   def new
-    @contact = Contact.new
+    @application = Application.find(params[:application_id])
   end
 
   # GET /contacts/1/edit
@@ -30,7 +30,8 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
-    @contact = Contact.new(contact_params)
+    @application = Application.find(params[:application_id])
+    @contact = @application.contacts.create(contact_params)
 
     existing_contact = Contact.find_by(phone: contact_params["phone"].squish)
     if existing_contact
