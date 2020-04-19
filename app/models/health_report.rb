@@ -1,3 +1,3 @@
 class HealthReport < ApplicationRecord
-  belongs_to :traveller
+  belongs_to :contacts
 end

@@ -1,6 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
 /* Custom utilities */
 
 /*! purgecss start ignore */
@@ -310,11 +311,11 @@ button:disabled:hover, .disabled:hover, button:disabled:focus, .disabled:focus {
   }
 }
 
-.input-text {
+.form-input {
   @apply appearance-none block w-full bg-white border border-gray-400 rounded py-3 px-4 leading-snug;
 }
 
-.input-text:focus {
+.form-input:focus {
   @apply outline-none bg-white border-gray-500;
 }
 
