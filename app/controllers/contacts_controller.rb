@@ -15,7 +15,6 @@ class ContactsController < ApplicationController
   # GET /contacts/1
   # GET /contacts/1.json
   def show
-    @last_call = @contact.calls.order("created_at").last
   end
 
   # GET /contacts/new
@@ -25,6 +24,8 @@ class ContactsController < ApplicationController
 
   # GET /contacts/1/edit
   def edit
+    @application = Application.find(params[:application_id])
+    @contact = Contact.find(params[:id])
   end
 
   # POST /contacts
@@ -32,14 +33,15 @@ class ContactsController < ApplicationController
   def create
     @application = Application.find(params[:application_id])
     @contact = @application.contacts.create(contact_params)
+    @contact.user = current_user
 
     existing_contact = Contact.find_by(phone: contact_params["phone"].squish)
     if existing_contact
-      redirect_to existing_contact
+      redirect_to application_contact_url(@application, existing_contact)
     else
       respond_to do |format|
-        if @contact.save
-          format.html { redirect_to @contact, notice: "Contact was successfully created." }
+        if @contact.save!
+          format.html { redirect_to application_contact_url(@application, @contact), notice: "Contact was successfully created." }
           format.json { render :show, status: :created, location: @contact }
         else
           format.html { render :new }
