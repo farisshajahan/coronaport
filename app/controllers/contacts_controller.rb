@@ -81,42 +81,6 @@ class ContactsController < ApplicationController
     end
   end
 
-  def generate_medical_reqs
-    unscoped_contacts = Contact.joins(:medical_reqs).where(medical_reqs: { fullfilled: nil, not_able_type: nil }).distinct
-    contacts = scope_access(unscoped_contacts)
-    respond_to do |format|
-      format.csv { send_data contacts.to_medical_csv, filename: "users-#{Date.today}.csv" }
-    end
-  end
-
-  def generate_non_medical_reqs
-    unscoped_contacts = Contact.joins(:non_medical_reqs).where(non_medical_reqs: { fullfilled: nil, not_able_type: nil }).distinct
-    contacts = scope_access(unscoped_contacts)
-    respond_to do |format|
-      format.csv { send_data contacts.to_non_medical_csv, filename: "users-#{Date.today}.csv" }
-    end
-  end
-
-  def generate_complete_reqs
-    completed_ids = Contact.joins(:non_medical_reqs).where.not(non_medical_reqs: {fullfilled: nil}).distinct.pluck(:id) +
-                    Contact.joins(:medical_reqs).where.not(medical_reqs: {fullfilled: nil}).distinct.pluck(:id)
-    unscoped_contacts = Contact.where(id: completed_ids).distinct
-    contacts = scope_access(unscoped_contacts)
-    respond_to do |format|
-      format.csv { send_data contacts.to_csv, filename: "users-#{Date.today}.csv" }
-    end
-  end
-
-  def find_phone
-    phone = params["search"]["phone_number"]
-    @contact = Contact.find_by(phone: phone.squish)
-    if @contact
-      redirect_to @contact
-    else
-      redirect_to action: :new
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
