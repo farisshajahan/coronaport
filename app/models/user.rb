@@ -16,7 +16,7 @@ class User < ApplicationRecord
   belongs_to :panchayat, optional: true
   has_many :contacts
 
-  has_many :application
+  has_many :applications
 
   def is_admin?
     ["district_admin", "panchayat_admin", "admin"].include?(role)

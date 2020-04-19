@@ -15,3 +15,4 @@ panchayats.each do |p|
 end
 
 User.create({email: "admin@gmail.com", password: "pass123", password_confirmation: "pass123", role: :admin})
+Port.create({name: "Kochi", port_type: "airport"})

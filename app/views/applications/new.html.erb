@@ -17,12 +17,11 @@
       <div class="text-3xl font-semibold text-center border-b-4 border-gray-700 ">
         Create Application
       </div>
-      <%= simple_form_for Application.new, defaults: { input_html: { class: 'input-text mt-1 font-sans' }, wrapper_html: { class: 'flex flex-col my-4 max-w-xl mx-auto' }, label_html: { class: 'label' } } do |f| %>
+      <%= simple_form_for Application.new, defaults: { input_html: { class: 'form-input input-text mt-1 font-sans' }, wrapper_html: { class: 'flex flex-col my-4 max-w-xl mx-auto' }, label_html: { class: 'label' } } do |f| %>
         <%= f.error_notification %>
         <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
         <%= f.input :flight_number %>
-        <%= f.input :port_of_departure %>
         <%= f.input :port_of_departure %>
         <%= f.association :port, collection: Port.all(), input_html: { class: 'form-select', id: 'dropdown-choice-select' } %>
 
