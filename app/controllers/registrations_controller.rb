@@ -18,7 +18,6 @@ class RegistrationsController < Devise::RegistrationsController
       end
 
       sign_in resource
-      redirect_to root_path
     end
   end
 
@@ -36,6 +35,6 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def after_sign_up_path_for(resource)
-    new_user_registration_path
+    root_path
   end
 end

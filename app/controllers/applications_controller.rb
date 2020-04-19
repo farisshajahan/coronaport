@@ -1,7 +1,12 @@
 class ApplicationsController < ApplicationController
   before_action :authenticate_user!
+
   def index
-    @applications = Application.all()
+    @applications = current_user.applications
+  end
+
+  def show
+    @application = Application.find(params[:id])
   end
 
   def create
@@ -17,7 +22,8 @@ class ApplicationsController < ApplicationController
   end
 
   private
+
   def application_params
-    params.require(:application).permit(:port_id )
+    params.require(:application).permit(:port_id)
   end
 end

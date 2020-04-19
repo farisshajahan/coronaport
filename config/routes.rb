@@ -5,8 +5,6 @@ Rails.application.routes.draw do
 
   root 'applications#index'
 
-  get '/healthvolunteer', to: redirect('https://docs.google.com/forms/d/e/1FAIpQLSd6bQwTa5uTSgyo-Da-ir6bR0sxfGrRDtyxobBlkvaVlA8Z2A/viewform?usp=sf_link')
-
   get 'find_phone' => "contacts#find_phone"
 
   resources :applications, only: [:index,:show, :new, :create] do

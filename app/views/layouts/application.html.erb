@@ -57,15 +57,15 @@
   </div>
 </header>
 
-<% if flash.alert %>
-  <div class="bg-red-500 <%= 'hidden' if not flash.alert %>">
-    <div class="container px-2 mx-auto py-2 py-4 text-white text-center"><%= flash[:alert] %></div>
-  </div>
-<% else %>
-  <div class="bg-green-500 <%= 'hidden' if not flash.notice %>">
-    <div class="container px-2 mx-auto py-4 text-white text-center "><%= flash.notice %></div>
-  </div>
-<% end %>
+<%# if flash.alert %>
+<!--  <div class="bg-red-500 <%#= 'hidden' if not flash.alert %>">-->
+<!--    <div class="container px-2 mx-auto py-2 py-4 text-white text-center"><%#= flash[:alert] %></div>-->
+<!--  </div>-->
+<%# else %>
+<!--  <div class="bg-green-500 <%#= 'hidden' if not flash.notice %>">-->
+<!--    <div class="container px-2 mx-auto py-4 text-white text-center "><%#= flash.notice %></div>-->
+<!--  </div>-->
+<%# end %>
 
 <main class="p-4 lg:p-6 py-10 max-w-5xl mx-auto">
   <%= yield %>
