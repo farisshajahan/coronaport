@@ -33,6 +33,21 @@
                     </ul>
                 </dd>
             </div>
+            <% if current_user.panchayat_admin? %>
+            <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+                <dt class="text-sm leading-5 font-medium text-gray-500">
+                    Status
+                </dt>
+                <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                    <%= simple_form_for edit_application_house_path(@house.application, @house), defaults: { input_html: {class: 'form-input mt-1 font-sans'}, wrapper_html: {class: 'flex flex-col my-4'}, label_html: {class: 'mb-1'}} do |f|%>
+                        <%= f.input :status, input_html: {class: 'form-select'} %>
+                        <%= f.button :submit, 'Save', class: 'inline-flex items-center px-3 py-3 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150' %>
+
+                    <% end %>
+
+                </dd>
+            </div>
+            <% end %>
             <!--      <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">-->
             <!--        <dt class="text-sm leading-5 font-medium text-gray-500">-->
             <!--          Number of Family Members-->
