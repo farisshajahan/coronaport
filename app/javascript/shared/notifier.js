@@ -1,6 +1,7 @@
 import PNotify from "pnotify/dist/es/PNotify";
+/*purgecss start ignore*/
 import "pnotify/dist/PNotifyBrightTheme.css";
-
+/*purgecss end ignore*/
 const notify = (title, text, type) => {
   const notification = PNotify.alert({
     type: type,
