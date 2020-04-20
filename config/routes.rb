@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :applications, only: [:index,:show, :new, :create, :update, :edit] do
     resources :houses, except: [:destroy] do
     end
+    resources :vehicles, except: [:destroy] do
+    end
     resources :contacts, except: [:destroy] do
       get :make_call, on: :member
       get :generate_non_medical_reqs, on: :collection
