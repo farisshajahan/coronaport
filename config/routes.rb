@@ -7,8 +7,9 @@ Rails.application.routes.draw do
 
   get 'find_phone' => "contacts#find_phone"
 
-  resources :applications, only: [:index,:show, :new, :create, :update, :edit] do
+  resources :applications, only: [:index, :show, :new, :create, :update, :edit] do
     resources :houses, except: [:destroy] do
+      get :confirm, on: :collection
     end
     resources :vehicles, except: [:destroy] do
     end
