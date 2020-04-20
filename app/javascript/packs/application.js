@@ -8,6 +8,16 @@ import "shared/utils/rollbar.js"
 import "@fortawesome/fontawesome-free/js/all.js"
 import "shared/flashes.js"
 
+// Add Choices Dropdown
+const Choices = require('choices.js')
+document.addEventListener("turbolinks:load", function() {
+  var dropDownSelects = new Choices('#dropdown-choice-select')
+})
+
+// document.addEventListener("turbolinks:load", function() {
+//   var dropDownSelects = new Choices('#dropdown-choice-select-1')
+// })
+
 require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()

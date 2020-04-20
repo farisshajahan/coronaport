@@ -1,12 +1,12 @@
+ /*purgecss start ignore*/
+@import "choices.js/public/assets/styles/choices.css";
+ /*purgecss end ignore*/
+
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
 /* Custom utilities */
-
-/*! purgecss start ignore */
-@import "choices.js/public/assets/styles/choices.css";
-/*! purgecss end ignore */
 
 .max-w-fc {
   max-width: fit-content;

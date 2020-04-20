@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 class Contact < ApplicationRecord
-  enum gender: { male: "male", female: "female" }
-  enum ration_type: { yellow: "yellow", pink: "pink", blue: "blue", white: "white" }
-  enum tracking_type: { international_passenger: "international_passenger", domestic_passenger: "domestic_passenger", other: "other" }
-
+  enum gender: { male: "male", female: "female", other: "other" }
   belongs_to :panchayat, optional: :true
   belongs_to :user
   belongs_to :application

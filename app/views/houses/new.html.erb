@@ -1,18 +1,10 @@
-<h3>Add New House</h3>
-
-
-<%= simple_form_for [@application, @application.houses.build], defaults: { input_html: {class: 'form-input mt-1'}, wrapper_html: {class: 'flex flex-col my-2 max-w-md'}} do |f| %>
-    <div class="">
-        <%= f.input :name %>
-        <%= f.input :address  %>
-        <%= f.input :ward  %>
-        <%= f.association :panchayat, collection: Panchayat.all(), input_html: {class: 'form-select'} %>
-        <%= f.input :contact_number  %>
-        <%= f.input :contact_person  %>
-        <%= f.input :comment  %>
-        <%= f.input :status  %>
-        <div class="mt-4">
-            <%= f.button :submit, 'Save', class:'inline-flex items-center px-3 py-3 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150' %>
-        </div>
+<div class="container mx-auto px-3 max-w-5xl py-8">
+  <div class="bg-white shadow overflow-hidiven  sm:rounded-lg max-w-3xl mx-auto">
+    <div class="px-6 py-5 border-b border-gray-200 flex flex-col items-between justify-center  lg:flex-row lg:items-center lg:justify-between sm:px-6">
+      <div class="mt-4 text-3xl font-semibold">
+        Enter the details of the house
+      </div>
     </div>
-<% end %>
+    <%= render 'form' %>
+  </div>
+</div>
