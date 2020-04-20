@@ -4,6 +4,10 @@ class ApplicationsController < ApplicationController
 
   def index
     @applications = current_user&.applications
+
+    if current_user && current_user.panchayat_admin? 
+      @houses = House.where(panchayat: current_user.panchayat).where(status: nil)
+    end
   end
 
   def show
