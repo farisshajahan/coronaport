@@ -4,6 +4,9 @@ class HousesController < ApplicationController
     @house = @application.houses.build
   end
 
+  def confirm
+  end
+
   def create
     @application = Application.find(params[:application_id])
     @house = @application.houses.create(house_params)
