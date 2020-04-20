@@ -15,7 +15,7 @@
             <% @applications.each do |app| %>
               <%= link_to application_path(app) do %>
                 <div class="bg-white px-4 py-5 border border-gray-200 sm:px-6 shadow rounded-lg max-w-xl mx-auto mt-4 mb-2">
-                  <div class="-ml-4 -mt-2 flex items-center justify-between flex-wrap sm:flex-no-wrap">
+                  <div class="-ml-4 -mt-2 flex items-center justify-center md:justify-between flex-wrap sm:flex-no-wrap">
                     <div class="ml-4 mt-2 flex items-center">
                       <h1 class="text-3xl font-medium text-gray-900 mr-2">
                         Application <%= app.id %>
