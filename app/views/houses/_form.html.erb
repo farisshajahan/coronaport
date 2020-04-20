@@ -7,8 +7,8 @@
       <%= f.association :panchayat, collection: Panchayat.all(), input_html: { class: 'form-select' }, required: true %>
       <%= f.input :contact_person, label: 'Contact person in Kerala', required: true %>
       <%= f.input :contact_number, label: 'Number of Contact person in Kerala', required: true %>
-      <%= f.input :comment %>
-      <%= f.input :status %>
+      <%#= f.input :comment %>
+      <%#= f.input :status %>
       <div class="mt-4">
         <%= f.button :submit, 'Save', class: 'inline-flex items-center px-3 py-3 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition ease-in-out duration-150' %>
       </div>

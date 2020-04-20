@@ -1,47 +1,6 @@
 <% if current_user && current_user.panchayat_admin? %>
-  <section>
-    <h1>Pending Houses for Verfication</h1>
-    <div class="flex flex-col">
-      <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-        <div class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
-          <table class="min-w-full">
-            <thead>
-            <tr>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Name
-              </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Address
-              </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Ward, Panchayat
-              </th>
-              <th class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                Contact
-              </th>
-            </tr>
-            </thead>
-            <tbody>
-            <% @houses.each do |house| %>
-              <tr class="bg-white">
-                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 font-medium text-gray-900">
-                  <%= link_to house.name, application_house_path(house.application, house) %>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                  <%= link_to house.address, application_house_path(house.application, house) %>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                  <%= house.ward %> Ward, <%= house.panchayat.name %>
-                </td>
-                <td class="px-6 py-4 whitespace-no-wrap text-sm leading-5 text-gray-500">
-                  <%= house.contact_person %>, <%= house.contact_number %>
-                </td>
-              </tr>
-            <% end %>
-            </tbody>
-          </table>
-
-  </section>
+  <h1 class="md:text-5xl text-3xl">Pending Houses for Verfication</h1>
+  <%= render 'panchayat/list' %>
 <% else %>
   <section>
     <div class="relative bg-gray-50 overflow-hidden">

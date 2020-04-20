@@ -32,6 +32,8 @@ gem 'simple_form'
 gem 'devise'
 gem 'enum_help'
 
+# Qr code
+gem 'rqrcode'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

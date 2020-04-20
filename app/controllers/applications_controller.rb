@@ -5,8 +5,8 @@ class ApplicationsController < ApplicationController
   def index
     @applications = current_user&.applications
 
-    if current_user && current_user.panchayat_admin? 
-      @houses = House.where(panchayat: current_user.panchayat).where(status: nil)
+    if current_user && current_user.panchayat_admin?
+      @houses = current_user.panchayat.houses.where(status: '')
     end
   end
 
