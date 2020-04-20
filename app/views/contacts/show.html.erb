@@ -52,11 +52,12 @@
       </div>
       <div class="md:w-1/2 mt-4 flex items-center mx-auto p-4 md:p-10">
         <%
-          qrcode = RQRCode::QRCode.new(application_contact_url(@contact.application, @contact))
+          qrcode = RQRCode::QRCode.new("#{application_contact_url(@contact.application, @contact)}")
           # With default options specified explicitly
           svg = qrcode.as_svg(offset: 0, color: '000',
             shape_rendering: 'crispEdges',
-            module_size: 8)
+            module_size: 6,
+            standalone: true)
         %>
 
         <%= raw svg %>
