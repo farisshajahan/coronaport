@@ -203,9 +203,11 @@
                         <%= house.panchayat.name %>
                       </dd>
                     </div>
-                    <div class="text-sm flex px-4 bg-orange-200 rounded-lg items-center py-1 font-semibold">
-                      <sapn>View</sapn>
-                      <i class="fas fa-eye ml-2"></i>
+                    <div class="flex">
+                      <div class="text-sm flex px-6 bg-orange-200 rounded-lg items-center py-1 font-semibold">
+                        <sapn>View</sapn>
+                        <i class="fas fa-eye ml-2"></i>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -251,22 +253,23 @@
               <div href="#" class="block hover:bg-gray-300 focus:outline-none focus:bg-gray-300 transition duration-150 ease-in-out">
                 <div class="flex items-center px-4 py-4 sm:px-6">
                   <div class="min-w-0 flex-1 flex items-center">
-                    <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                    <div class="min-w-0 flex-1 px-4 md:grid md:grid-cols-3 md:gap-2">
                       <div>
                         <div class="text-sm leading-5 font-medium text-indigo-600 truncate"><%= vehicle.number_plate %></div>
                       </div>
-                      <div class="hidden md:block">
-                        <div>
-                          <div class="text-sm leading-5 text-gray-900">
-                            <%= vehicle.seats %> seater
-                          </div>
+
+                      <div>
+                        <div class="text-sm leading-5 text-gray-900">
+                          <%= vehicle.seats&.titleize %> seater
+                        </div>
+                      </div>
+                      <div class="flex mx-auto">
+                        <div class="text-sm flex px-4 bg-orange-200 rounded-lg items-center py-1 font-semibold">
+                          <sapn>Edit</sapn>
+                          <i class="fas fa-pencil-alt ml-2"></i>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="text-sm flex px-4 bg-orange-200 rounded-lg items-center py-1 font-semibold">
-                    <sapn>Edit</sapn>
-                    <i class="fas fa-pencil-alt ml-2"></i>
                   </div>
                 </div>
               </div>
