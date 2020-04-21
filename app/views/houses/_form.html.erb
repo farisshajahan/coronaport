@@ -4,7 +4,7 @@
       <%= f.input :name, label: 'House Name', required: true %>
       <%= f.input :address, required: true %>
       <%= f.input :ward, required: true %>
-      <%= f.association :panchayat, collection: Panchayat.all(), input_html: { class: 'form-select' }, required: true %>
+      <%= f.association :panchayat, collection: Panchayat.all(), input_html: { class: 'form-select', id: 'dropdown-choice-select' }, required: true %>
       <%= f.input :contact_person, label: 'Contact person in Kerala', required: true %>
       <%= f.input :contact_number, label: 'Number of Contact person in Kerala', required: true %>
       <%#= f.input :comment %>
