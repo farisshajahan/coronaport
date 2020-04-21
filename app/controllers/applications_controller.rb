@@ -6,7 +6,7 @@ class ApplicationsController < ApplicationController
     @applications = current_user&.applications
 
     if current_user && current_user.panchayat_admin?
-      @houses = current_user.panchayat.houses.where(status: '')
+      @houses = current_user.panchayat.houses.where(status: nil)
     end
   end
 
