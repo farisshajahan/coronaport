@@ -6,6 +6,7 @@ class Contact < ApplicationRecord
   belongs_to :user
   belongs_to :application
   has_one :health_report
+  accepts_nested_attributes_for :health_report
 
   def self.to_csv
     attributes = %w{name phone house_name ward panchayat to_pay card_color family_members non_medical_needs medical_needs}

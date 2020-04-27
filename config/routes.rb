@@ -27,6 +27,8 @@ Rails.application.routes.draw do
         get :fullfill, on: :member
         get :not_able, on: :member
       end
+      resources :health_reports, except: [:destroy] do
+      end
     end
   end
 end
