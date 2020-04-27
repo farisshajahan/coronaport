@@ -102,9 +102,9 @@ module.exports = {
         '2xl': '1824px',
         // => @media (min-width: 1824px) { ... }
       }
-    }, plugins: [
-      require('@tailwindcss/custom-forms'),
-      require('@tailwindcss/ui'),
-    ],
-  }
+    }
+  }, plugins: [
+    require('@tailwindcss/custom-forms'),
+    require('@tailwindcss/ui'),
+  ],
 };
