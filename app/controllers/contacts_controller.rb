@@ -15,6 +15,7 @@ class ContactsController < ApplicationController
   # GET /contacts/1
   # GET /contacts/1.json
   def show
+    @application = Application.find(params[:application_id])
   end
 
   # GET /contacts/new
