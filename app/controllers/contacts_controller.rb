@@ -15,6 +15,7 @@ class ContactsController < ApplicationController
   # GET /contacts/1
   # GET /contacts/1.json
   def show
+    @application = Application.find(params[:application_id])
   end
 
   # GET /contacts/new
@@ -56,7 +57,7 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(contact_params)
-        format.html { redirect_to @contact, notice: "Contact was successfully updated." }
+        format.html { redirect_to application_contact_url(@application, @contact), notice: "Contact was successfully created." }
         format.json { render :show, status: :ok, location: @contact }
       else
         format.html { render :edit }
@@ -139,6 +140,18 @@ class ContactsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def contact_params
-    params.require(:contact).permit(:name, :phone, :gender, :age, :house_name, :ward, :landmark, :panchayat_id, :ration_type, :willing_to_pay, :number_of_family_members, :feedback, :user_id, :date_of_contact, :tracking_type, :panchayat_feedback)
+    params.require(:contact).permit(:name, :phone, :gender, :age, :house_name, :ward, :landmark, :panchayat_id, :ration_type, :willing_to_pay, :number_of_family_members, :feedback, :user_id, :date_of_contact, :tracking_type, :panchayat_feedback,
+       :has_diabetes,
+       :has_hyper_tension,
+       :has_heart_disease,
+       :has_kidney_disease,
+       :is_pregnant,
+       :recent_history,
+       :symptoms,
+       :primary_contact,
+       :has_tested,
+       :was_positive,
+       :test_type
+    )
   end
 end
