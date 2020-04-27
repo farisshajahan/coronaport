@@ -24,6 +24,19 @@
     <!--      <hr class="pb-4"/>-->
     <%#= f.input :ration_type, input_html: { class: 'form-select' } %>
     <!--    </div>-->
+    <div>
+        <%= f.input :has_diabetes, input_html:{class: "form-checkbox"} %>
+        <%= f.input :has_hyper_tension, input_html:{class: "form-checkbox"} %>
+        <%= f.input :has_heart_disease, input_html:{class: "form-checkbox"} %>
+        <%= f.input :has_kidney_disease, input_html:{class: "form-checkbox"} %>
+        <%= f.input :is_pregnant, input_html:{class: "form-checkbox"} %>
+        <%= f.input :primary_contact, input_html:{class: "form-checkbox"} %>
+        <%= f.input :has_tested, input_html:{class: "form-checkbox"} %>
+        <%= f.input :was_positive, input_html:{class: "form-checkbox"} %>
+        <%= f.input :test_type%>
+        <%= f.input :recent_history%>
+        <%= f.input :symptoms%>
+    </div>
     <span class="inline-flex rounded-md shadow-sm">
         <%= f.button :submit, 'Submit Changes', 'data-turbolinks-scroll': false, class: 'mt-4 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:border-gray-700 focus:shadow-outline-indigo active:bg-gray-700 transition ease-in-out duration-150' %>
     </span>
