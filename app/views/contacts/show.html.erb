@@ -1,78 +1,109 @@
 <div class="max-w-3xl mx-auto">
-    <% if not current_user.panchayat_admin? %>
+  <% if not current_user.panchayat_admin? %>
     <div class="mt-3 lg:mt-0">
-        <%= link_to 'Edit Traveller', edit_application_contact_path(@contact), class: 'bg-white inline-flex items-center px-3 py-2 rounded-md text-sm font-medium leading-5 rounded shadow text-gray-800' %>
+      <%= link_to 'Edit Traveller', edit_application_contact_path(@application, @contact), class: 'bg-white inline-flex items-center px-3 py-2 rounded-md text-sm font-medium leading-5 rounded shadow text-gray-800' %>
     </div>
-    <% end %>
-    <div class="bg-white shadow overflow-hidden  sm:rounded-lg mt-4">
-        <div class="text-5xl font-black mt-4 text-center">
-            Kerala Travel Pass
-        </div>
-        <div class="flex flex-col-reverse md:flex-row">
-            <div class="md:w-1/2 px-4">
-                <dl>
-                    <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
-                        <dt class="text-sm leading-5 font-medium text-gray-500">
-                            Name
-                        </dt>
-                        <dd class="mt-1 text-sm flex flex-col leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                            <p>
-                                <%= @contact.name %>
-                            </p>
-                        </dd>
-                    </div>
-                    <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                        <dt class="text-sm leading-5 font-medium text-gray-500">
-                            Phone Number, Click to Call
-                        </dt>
-                        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                            <%= link_to @contact.phone, "tel:#{@contact.phone}" %>
-                        </dd>
-                    </div>
-                    <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                        <dt class="text-sm leading-5 font-medium text-gray-500">
-                            Age / Gender
-                        </dt>
-                        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                            <%= @contact.gender.to_s.capitalize() %>, <%= @contact.age %> years old
-                        </dd>
-                    </div>
-                    <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                        <dt class="text-sm leading-5 font-medium text-gray-500">
-                            Address
-                        </dt>
-                        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                            <ul>
-                                <li class="my-2"><span class="font-bold">House:</span> <span><%= @contact.house_name %></span></li>
-                                <li class="my-2"><span class="font-bold">Ward: </span><%= @contact.ward %></span></li>
-                                <li class="my-2"><span class="font-bold">Panchayat: </span><%= @contact.panchayat.name %></span></li>
-                            </ul>
-                        </dd>
-                    </div>
-                    <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
-                        <dt class="text-sm leading-5 font-medium text-gray-500">
-                            Health Report
-                        </dt>
-                        <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                            <%= simple_form_for [@application, @contact || @application.contacts.build], defaults: { input_html: { class: 'form-input mt-1 font-sans' }, wrapper_html: { class: 'flex flex-col my-4' }, label_html: { class: 'mb-1' } } do |f| %>
-                                <%= f.input :has_diabetes, input_html:{class: "form-checkbox"} %>
-                                <%= f.input :has_hyper_tension, input_html:{class: "form-checkbox"} %>
-                                <%= f.input :has_heart_disease, input_html:{class: "form-checkbox"} %>
-                                <%= f.input :has_kidney_disease, input_html:{class: "form-checkbox"} %>
-                                <%= f.input :is_pregnant, input_html:{class: "form-checkbox"} %>
-                                <%= f.input :primary_contact, input_html:{class: "form-checkbox"} %>
-                                <%= f.input :has_tested, input_html:{class: "form-checkbox"} %>
-                                <%= f.input :was_positive, input_html:{class: "form-checkbox"} %>
-                                <%= f.input :test_type%>
-                                <%= f.input :recent_history%>
-                                <%= f.input :symptoms%>
-
-                            <% end %>
-                        </dd>
-                    </div>
-            </div>
-            <div class="md:w-1/2 mt-4 flex items-center mx-auto p-4 md:p-10">
-                <%
+  <% end %>
+  <div class="bg-white shadow overflow-hidden  sm:rounded-lg mt-4">
+    <div class="text-5xl font-black mt-4 text-center">
+      Safe Travel Pass
+    </div>
+    <div class="flex flex-col-reverse md:flex-row">
+      <div class="md:w-1/2 px-4">
+        <dl>
+          <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6 sm:py-5">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Name
+            </dt>
+            <dd class="mt-1 text-sm flex flex-col leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <p>
+                <%= @contact.name %>
+              </p>
+            </dd>
+          </div>
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Phone Number, Click to Call
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= link_to @contact.phone, "tel:#{@contact.phone}" %>
+            </dd>
+          </div>
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Age / Gender
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <%= @contact.gender.to_s.capitalize() %>, <%= @contact.age %> years old
+            </dd>
+          </div>
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Address
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <ul>
+                <li class="my-2"><span class="font-bold">House:</span> <span><%= @contact.house_name %></span></li>
+                <li class="my-2"><span class="font-bold">Ward: </span><%= @contact.ward %></span></li>
+                <li class="my-2"><span class="font-bold">Panchayat: </span><%= @contact.panchayat.name %></span></li>
+              </ul>
+            </dd>
+          </div>
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Health Report
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <% if @contact.has_diabetes? %>
+                <li class="my-2"><span class="font-bold">Has diabetes</span></li>
+              <% end %>
+              <% if @contact.has_hyper_tension %>
+                <li class="my-2"><span class="font-bold">Has Hyper Tension</span></li>
+              <% end %>
+              <% if @contact.has_heart_disease %>
+                <li class="my-2"><span class="font-bold">Has Heart Disease</span></li>
+              <% end %>
+              <% if @contact.has_kidney_disease %>
+                <li class="my-2"><span class="font-bold">Has a Kidney Disease</span></li>
+              <% end %>
+              <% if @contact.primary_contact %>
+                <li class="my-2"><span class="font-bold">Was a primary contact</span></li>
+              <% end %>
+              <% if @contact.has_tested %>
+                <li class="my-2"><span class="font-bold">Has tested</span></li>
+              <% end %>
+              <% if @contact.was_positive %>
+                <li class="my-2"><span class="font-bold">Was positive</span></li>
+              <% end %>
+            </dd>
+          </div>
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Symptoms
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <li class="my-2"><span class="font-bold"><%= @contact.symptoms %></span></li>
+            </dd>
+          </div>
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Recent medical History
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <li class="my-2"><span class="font-bold"><%= @contact.recent_history %></span></li>
+            </dd>
+          </div>
+          <div class="mt-8 sm:mt-0 sm:grid sm:grid-cols-3 sm:gap-4 sm:border-t sm:border-gray-200 sm:px-6 sm:py-5">
+            <dt class="text-sm leading-5 font-medium text-gray-500">
+              Test type
+            </dt>
+            <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+              <li class="my-2"><span class="font-bold"><%= @contact.test_type %></span></li>
+            </dd>
+          </div>
+      </div>
+      <div class="md:w-1/2 mt-4 flex items-center mx-auto p-4 md:p-10">
+        <%
           qrcode = RQRCode::QRCode.new("#{application_contact_url(@contact.application, @contact)}")
           # With default options specified explicitly
           svg = qrcode.as_svg(offset: 0, color: '000',
@@ -81,8 +112,8 @@
             standalone: true)
         %>
 
-                <%= raw svg %>
-            </div>
-        </div>
+        <%= raw svg %>
+      </div>
     </div>
+  </div>
 </div>

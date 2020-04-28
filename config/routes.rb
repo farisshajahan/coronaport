@@ -14,21 +14,6 @@ Rails.application.routes.draw do
     resources :vehicles, except: [:destroy] do
     end
     resources :contacts, except: [:destroy] do
-      get :make_call, on: :member
-      get :generate_non_medical_reqs, on: :collection
-      get :generate_medical_reqs, on: :collection
-      get :generate_complete_reqs, on: :collection
-
-      resources :non_medical_reqs do
-        get :fullfill, on: :member
-        get :not_able, on: :member
-      end
-      resources :medical_reqs do
-        get :fullfill, on: :member
-        get :not_able, on: :member
-      end
-      resources :health_reports, except: [:destroy] do
-      end
     end
   end
 end
