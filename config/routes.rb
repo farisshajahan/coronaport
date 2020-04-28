@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     resources :vehicles, except: [:destroy] do
     end
     resources :contacts, except: [:destroy] do
+      get :summary, on: :member
     end
   end
 end

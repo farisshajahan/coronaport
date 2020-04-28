@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class ContactsController < ApplicationController
-  before_action :set_contact, only: [:show, :edit, :update, :destroy, :make_call]
-  before_action :set_application, only: [:show, :new, :edit, :update, :create]
+  before_action :set_contact, only: [:show, :edit, :update, :destroy, :summary]
+  before_action :set_application, only: [:show, :new, :edit, :update, :create, :summary]
 
   # GET /contacts
   # GET /contacts.json
@@ -50,6 +50,10 @@ class ContactsController < ApplicationController
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def summary
+
   end
 
   private
